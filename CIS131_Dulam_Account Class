@@ -1,0 +1,34 @@
+#Satya Dulam
+#CIS131
+#6/26/24
+#account assignment
+
+#importing decimal like textbook
+from decimal import Decimal
+
+#creating new class
+class Account:
+    
+    #used to initialize a newly created object
+    def __init__(self,name,balance):
+        if balance<Decimal('0.00'):
+            raise ValueError("Inital Balance must be $0.00 or above")
+                
+        self._name = name
+        self._balance = balance
+        
+    #setting the objects are properties
+    def name(self):
+        return self._name
+    def balance(self):
+        return self._balance
+    
+#creating objects in the class to be read-only
+account1= Account('John Green',Decimal('50.00'))
+
+print(account1.name())
+print(account1.balance())
+
+#trying to assign a new name attribute to the object
+account1.name = 'Mary'
+
