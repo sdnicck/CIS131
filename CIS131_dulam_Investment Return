@@ -1,0 +1,31 @@
+#Satya Dulam
+#Lab: Investment Return
+# 6/4/24
+
+# Some investment advisors say that it’s reasonable to expect a 7% return over the long term in the stock market. If you begin with $1000 and leave your money invested, calculate, and display how much money you’ll have after 10, 20 and 30 years. Use the following formula for determining these amounts:
+
+# a = p(1 + r)^n (^ means power of)
+# where
+# p is the original amount invested (i.e., the principal of $1000),
+# r is the annual rate of return (7%),
+# n is the number of years (10, 20 or 30) and
+# a is the amount on deposit at the end of the
+# nth year.
+
+#setting inital number of years in a list
+numberYears = [10,20,30]
+
+# setting constants for the rest of the code
+p = 1000
+r = 0.07
+
+#setting a loop to run through the number of years avaliable for the investment return
+print("With an intial investment of $"+ str(p),"and an interest rate of "+ str(format((r*100),'1.0f')) + "%, you will have made...")
+for year in range(len(numberYears)):
+    n = numberYears[year]
+    a = p*((1+r)**n)
+    year = year + 1
+    
+    # showing the user how much money total they would have after that many number of years 
+    print("\n$" + format(a,'0.2f'),"after",n,"years.")
+    
