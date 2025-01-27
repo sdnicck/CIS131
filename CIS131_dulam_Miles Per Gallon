@@ -1,0 +1,54 @@
+#Satya Dulam
+#CIS 131: Miles Per Gallon
+# 6/4/24
+
+# Drivers are concerned with the mileage obtained by their automobiles. One driver has kept track of several tankfuls of gasoline by recording miles driven and gallons used for each tankful. Develop a sentinel-controlled-repetition script that prompts the user to input the miles driven and gallons used for each tankful. The script should calculate and display the miles per gallon obtained for each tankful. After processing all input information, the script should calculate and display the combined miles per gallon obtained for all tankfuls (that is, total miles driven divided by total gallons used).
+
+
+# Enter the gallons used (-1 to end): 12.8
+# Enter the miles driven: 287
+# The miles/gallon for this tank was 22.421875
+# Enter the gallons used (-1 to end): 10.3
+# Enter the miles driven: 200
+# The miles/gallon for this tank was 19.417475
+# Enter the gallons used (-1 to end): 5
+# Enter the miles driven: 120
+# The miles/gallon for this tank was 24.000000
+# Enter the gallons used (-1 to end): -1
+# The overall average miles/gallon was 21.601423
+
+#main function of calcualting miles/gallon and average miles/gallon
+def main():
+    
+    #setting up variable counter numbers
+    gallonsUsed = 0
+    counter = 0 
+    totalMilesPerGallon = 0
+
+    #setting up intial sentinel for gallons of gas used
+    while gallonsUsed != -1:
+        gallonsUsed = getFloat('\nEnter the gallons of gas used (-1 to end): ')
+        
+        #only allowing the user to enter in miles driven and calculate miles/gallon if sentiel for input before is valid
+        while gallonsUsed != -1:
+            counter += 1
+            milesDriven = getFloat('\nEnter the number of miles driven: ')
+            milesPerGallon = milesDriven/gallonsUsed
+            print('\nThe miles per gallon for this tank was', format(milesPerGallon,'0.6f'))
+            totalMilesPerGallon += milesPerGallon
+            break
+    # showing the user the average of all of the miles/gallon data entered     
+    average = totalMilesPerGallon /counter
+    print('\nThe overall average miles per gallon was', format(average,"0.6f"))
+    
+#float input validation
+def getFloat(message):
+    while True:
+        try: 
+            userInput = float(input(message))
+            return userInput
+        except ValueError:
+            print('Invalid data entered, please enter a number')
+
+#call back to original main function           
+main()
