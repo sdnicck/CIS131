@@ -1,0 +1,45 @@
+#Satya Dulam
+#CIS131
+#7/7/24
+
+#setting up a main function to call later
+def main():
+    
+    #letting the user know what is going on 
+    print("Please enter two numbers to find the exponential value!")
+    
+    #setting up the power defintion
+    def power (base,exponent):
+        if exponent== 1:
+            return base
+        return base*power(base,(exponent-1))
+    
+    #prompting the user the enter in numbers for the power function
+    base= getInteger("Please enter a integer for the base: ")
+    exponent= getValidNum("Please enter a positive integer for the exponent: ",0)
+    
+    #printing results for the user
+    print(f'{base}^{exponent}={power(base,exponent)}')
+
+#input validation  
+def getInteger(message):
+    while True:
+        try:
+            userInput=int(input(message))
+            return userInput
+        except ValueError:
+            print("Please enter a whole number!")
+            
+def getValidNum(message,LOW):
+    newValue=getInteger(message)
+    while isInvalid(newValue,LOW):
+        print("Please enter a whole number above 0!")
+        newValue=getInteger(message)
+    return newValue
+
+def isInvalid(newValue,LOW):
+    if newValue <LOW:
+        return True
+    return False
+
+main()
