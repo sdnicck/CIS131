@@ -1,0 +1,52 @@
+#Satya Dulam
+#7/27/24
+#Sqlite 3 assignment
+
+#importing databases books from chapter 17 and panda software
+
+import sqlite3
+
+connection = sqlite3.connect('books.db')
+
+import pandas as pd
+
+pd.options.display.max_columns = 10
+
+#a)reading off authors last names in descending order and their IDs for later questions
+print("\na)")
+print(pd.read_sql('SELECT last,id FROM authors ORDER BY last DESC', connection))
+
+#b)reading off titles from title table in ascending order 
+print("\nb)")
+print(pd.read_sql('SELECT title FROM titles ORDER BY title ASC',connection))
+
+#c)using a specific authors ID, I compared the isbn column in titles with the isbn column in authur_ISBN to find all of the titles from a specific author
+print("\nc)")
+print(pd.read_sql("""SELECT titles.title, titles.copyright, titles.isbn
+                FROM titles
+                INNER JOIN author_ISBN
+                ON titles.isbn=author_ISBN.isbn
+                WHERE id=2
+                ORDER BY title ASC""",connection))
+
+#d)I connected to cursor to allow me to edit the database and added in a non-coding books
+print("\nd)")
+cursor = connection.cursor()
+
+cursor = cursor.execute("""INSERT INTO authors (first, last) VALUES ('Harper', 'Lee')""")
+
+print(pd.read_sql('SELECT id,last FROM authors ORDER BY last DESC', connection))
+
+#e)I used the id from question d) to add an isbn column to both titles table and author_ISBN table and added a book title copyright year, and edition to titles table
+print("\ne)")
+cursor = cursor.execute("""INSERT INTO author_ISBN (id,isbn) VALUES (6,0134289365)""")
+
+cursor = cursor.execute("""INSERT INTO titles (isbn,copyright,title,edition) VALUES (0134289365,1960,'To Kill a Mockingbird',1)""")
+print(pd.read_sql("""SELECT titles.title, titles.isbn
+                FROM titles
+                INNER JOIN author_ISBN
+                ON titles.isbn=author_ISBN.isbn
+                ORDER BY title ASC""",connection))
+
+connection.close()
+
