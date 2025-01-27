@@ -1,0 +1,34 @@
+from decimal import Decimal
+
+#pin=input("Please enter pin:")
+
+#dob=input("Please enter date of birth (mm-dd-yyyy):")
+
+
+class Account:
+    
+    def __init__(self,PIN,DOB,balance):
+        self._PIN=PIN
+        self._DOB=DOB
+        self._balance=balance
+    @property
+    def PIN(self):
+        return self._PIN
+    @property
+    def DOB(self):
+        return self._DOB
+    @property
+    def balance(self):
+        return self._balance
+    @balance.setter
+    def deposit(self,value):
+        self._balance += value
+        return self
+         
+    def __repr__(self):
+        return f"Your current balance is {self.balance:,.2f}"
+    
+customer1 = Account(1,1,50.00)
+customer1.deposit(20.00)
+
+print(customer1)
