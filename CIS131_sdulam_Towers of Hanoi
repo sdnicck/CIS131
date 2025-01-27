@@ -1,0 +1,24 @@
+#Satya Dulam
+#7/10/24
+#CIS131
+
+#starting function for moving rings
+
+def towerOfHanoi(ringNumber, start, end,temp):
+    #if the recursive reaches 0 the function is ended
+    if ringNumber==1:
+        print("Disk",ringNumber,"is moved from peg",start,"to peg",end)
+        return
+    #the variables of the function change in accordance to where they end up 
+    else:
+        #the all of the rings will start in the same position as put in the function,however after the first ring
+        #the temporary holder peg will become the new end peg
+        towerOfHanoi(ringNumber-1, start, temp, end)
+        print("Disk",ringNumber,"is moved from peg",start,"to peg",end)
+        #the ending peg of the last move becomes the start of the next move, the peg that was not being used by the ring
+        #from the previous move becomes the ending peg and the peg the ring starts from is does not recieve a ring 
+        #by the end of the move
+        towerOfHanoi(ringNumber-1, temp,end,start)
+
+towerOfHanoi(4,'A','C','B') 
+
