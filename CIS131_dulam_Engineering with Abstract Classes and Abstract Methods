@@ -1,0 +1,127 @@
+#Satya Dulam
+#7/3/24
+#CIS131
+
+#importing abstract methods to be used for methods
+from abc import ABC,abstractmethod
+    
+#setting base class
+class Employee(ABC):
+    
+    #setting nessecary variable for each subclass 
+    def __init__(self,firstName,lastName, ssn):
+        self._firstName=firstName
+        self._lastName=lastName
+        self._ssn=ssn
+       
+    #setting each variable in the class
+    @property
+    def firstName(self):
+        return self._firstName
+    @property
+    def lastName(self):
+        return self._lastName
+    @property
+    def ssn(self):
+        return self._ssn
+    
+    #abstract method that changes in each subclass
+    @abstractmethod
+    def earnings(self):
+        pass
+    
+    #string report for each class
+    def __repr__(self):
+        return f"Employee:{self.lastName},{self.firstName}(ssn:{self.ssn})"
+    
+#class for a salaried employee        
+class SalariedEmployee(Employee):
+    
+    #setting the necessary variables to be return for the class 
+    def __init__(self,firstName,lastName, ssn,weeklySalary):
+        self._firstName=firstName
+        self._lastName=lastName
+        self._ssn=ssn
+        self._weeklySalary=max(0,weeklySalary)
+        
+    #returning the necessary variable
+    @property
+    def weeklySalary(self):
+        return self._weeklySalary
+    
+    #returning the value entered because thats the most they can get paid 
+    @weeklySalary.setter
+    def weeklySalary(self,value):
+        self._weeklySalary=max(0,value)
+        
+    #the salary is returned as the total amount earned
+    def earnings(self):
+        return self._weeklySalary
+    
+    #string report of all necessary information 
+    def __repr__(self):
+        return f"Salaried Employee: {self.lastName}, {self.firstName} (Weekly Pay: ${self.earnings():,.2f})"
+
+#class for an hourly employee
+class HourlyEmployee(Employee):
+    
+    #setting variables of the class
+    def __init__(self,firstName,lastName,ssn,hoursWorked,wagePerHour):
+        self._firstName=firstName
+        self._lastName=lastName
+        self._ssn=ssn
+        self._hoursWorked= max(0,min(168,hoursWorked))
+        self._wagePerHour=max(0,wagePerHour)
+       
+    #returning the set variable
+    @property
+    def hoursWorked(self):
+        return self._hoursWorked
+    
+    #changing the variable of hoursWorked
+    @hoursWorked.setter
+    def hoursWorked(self,value):
+        self._hoursWorked=max(0,min(168,value))
+        
+    #returning the set variable
+    @property
+    def wagePerHour(self):
+        return self._wagePerHour
+    
+    #setting the variable of wagePerHour
+    @wagePerHour.setter
+    def wagePerHour(self,value):
+        self._wagePerHour=max(0,value)
+        
+    #calculating the pay based on the amount of hours worked
+    def earningsEquation(self,x,y):
+        if x < 40:
+            return x*y
+        else:
+            normalPay= 40*x
+            overtimePay=(x-40)*(y*1.5)
+            return normalPay+overtimePay
+        
+    #calling the earningsEquations with the correct variables
+    def earnings(self):
+        return(HourlyEmployee.earningsEquation(self,self.hoursWorked,self.wagePerHour))
+    
+    #string report of all necessary information 
+    def __repr__(self):
+        return f"Hourly Employee: {self.lastName}, {self.firstName} (Weekly Pay: ${self.earnings():,.2f})"
+ 
+ 
+# example employees with variables
+employee1=SalariedEmployee("Mark","Smallings","134-45-3234",1000)
+employee2=HourlyEmployee("Nick","Rick","555-55-5555",175,23)
+employee3=SalariedEmployee("Ryan","Gosling","334-43-6590",3000)
+
+#adding them to a list and printing out the necessary information 
+employeeList=[employee1,employee2,employee3]
+
+for person in employeeList:
+    print(person)
+
+
+
+        
