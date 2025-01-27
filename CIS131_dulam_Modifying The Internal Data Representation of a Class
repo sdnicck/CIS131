@@ -1,0 +1,64 @@
+#Satya Dulam
+#CIS131
+#6/26/24
+
+class Time():
+    
+    #setting the parameters/attributes for the class
+    def __init__(self, hour=0,minute=0,second=0):
+        self.hour=hour
+        self.minute=minute
+        self.second=second
+        
+    #setting the getter and reader attributes
+    @property
+    def hour(self):
+        return self._hour
+    @property
+    def minute(self):
+        return self._minute
+    @property
+    def second(self):
+        return self._second
+    
+    #allowing the coder to set different values to the attributes
+    @hour.setter
+    def hour(self,hour):
+        if not(0<=hour<24):
+            raise ValueError(f'Hour ({hour}) must be 0-23')
+        self._hour= hour
+        
+    @minute.setter
+    def minute(self,minute):
+        if not(0<=minute<60):
+            raise ValueError(f'Minute({minute}) must be 0-59')
+        self._minute= minute
+            
+    @second.setter
+    def second(self,second):
+        if not(0<=second<60):
+            raise ValueError(f'Second({second}) must be 0-59')
+        self._second= second
+        
+    #defining a new function to calculate the total amount of seconds since midnight
+    def totalSecondsEquation(self,x,y,z):
+        hourSeconds= x*3600
+        minuteSeconds= y*60
+        return hourSeconds+minuteSeconds+z
+    
+    #applying the 'self' attributes to the function called
+    def timeSeconds(self):
+        return(Time.totalSecondsEquation(self,self.hour,self.minute,self.second))
+    
+    #reporting all of the data defined in the class from the attributes to functions
+    def __repr__(self):
+        return(f'{self.hour} hours, {self.minute} minutes, and {self.second} seconds have pasted since 12am. \nIt has been {Time.timeSeconds(self)} seconds since midnight.')
+    
+#giving values to all the attributes
+wakeUp= Time(hour=3,minute=2,second=1)       
+print(repr(wakeUp))
+
+#changing on of the attributes and therefore changing the outcome of the functions defined in the class
+wakeUp.hour=6
+
+print(repr(wakeUp))
