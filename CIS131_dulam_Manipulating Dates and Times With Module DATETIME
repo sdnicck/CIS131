@@ -1,0 +1,26 @@
+#Satya Dulam
+#CIS131
+#Datetime Assignment
+#6/29/24
+
+#importing the datetime class
+from datetime import datetime
+#setting dates as variables
+x= datetime(2022,4,29,hour=4,minute=29,second=32,microsecond=234332)
+y=datetime.now()
+
+#displaying each variable
+print("The date saved as variable x is",x)
+print("The date saved as variable y is",y)
+#displating each attribute of variable x
+print("The year of variable x is",x.year)
+print("The month of variable x is", x.month)
+print("The day of variable x is",x.day)
+print("The hour of variable x is",x.hour)
+print("The minute of variable x is", x.minute)
+print("The second of variable x is",x.second)
+print("The microsecond of variable x is",x.microsecond)
+#comparing the two dates
+print("The date x was before the date y:",x<y)
+#finding the difference in time between the two dates 
+print("The difference between date y and x is", y-x)
