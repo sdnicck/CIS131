@@ -1,0 +1,20 @@
+pip install shodan
+
+
+
+import shodan
+import json
+
+api=shodan.Shodan('Gy2KYpQg9lUUVwYyB9Z9vrBGFryEXyd1')
+
+results= api.search("'in-tank inventory' state:'CA'")
+
+matches=results["matches"]
+
+
+inputData= json.dumps(matches)
+dataDict=json.loads(inputData)
+
+for i in dataDict:
+    for key,value in i.items():
+        print(i["data"])
