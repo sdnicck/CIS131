@@ -1,0 +1,28 @@
+#Satya Dulam
+#CIS131
+#7/7/24
+
+#setting the fibonacci function with a counter
+counter = 0
+def fibonacci(n):
+    global counter 
+    counter+=1
+    if n in (0,1):
+        return n
+    else:
+        return (n-1)+(n-2)
+    
+#the counter is tested on 2 different sets of data
+print(f'Fibonacci Sequence (Number of Times Function is called)')
+for n in range(10):
+    print(f'{fibonacci(n):<20}{counter}')
+    
+print(f'Fibonacci Sequence (Number of Times Function is called)')
+counter = 0 
+for n in range(20):
+    print(f'{fibonacci(n):<20}{counter}')
+    
+print(f'Fibonacci Sequence (Number of Times Function is called)')
+counter =0
+for n in range(30):
+    print(f'{fibonacci(n):<20}{counter}')
