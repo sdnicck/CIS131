@@ -1,0 +1,59 @@
+#Satya Dulam
+#CIS131
+#Telephone Number-Word Generator
+import itertools
+
+def main():
+    
+    numberToLetter = (' ',' ','A B C','D E F','G H I','J K L', 'M N O', 'P R S','T U V', 'W X Y')
+
+    with open("telephone-number word-generator.txt", mode='w') as telephone:
+        #list where index indiciates the letters avaiable for combination of that number 
+        #prompts the user to enter in a telephone number
+        
+        teleNumber = input("Please input a telephone number:")
+        telephone.write(teleNumber)
+
+        #creates necessary empty variables for later use
+        stackList = []
+        counter = 0
+
+        #only retains the numbers entered by user and enters each number into a list
+        for number in teleNumber:
+            counter += 1
+            if number not in ["-","(",")"]:
+                stackList.append(int(number))
+
+        #uses the each number in the phonenumber as the index to call the group of letters avaliable for that number
+        totalList= []
+        for i in stackList:
+            new = numberToLetter[i].split(" ")
+            #splits the group of letters into a new list and the groups of lists are added into a master list
+            totalList.append(new)
+
+        #master list will make several combinations of possible words to be formed from each sublist initally created
+        #print('\nHere is a list of words from this phone number:')   
+        counter2 = 0
+        for element in itertools.product(*totalList):
+            counter2 +=1
+            newWord = ("".join(element))
+            telephone.write(newWord)
+            
+    with open("telephone-number word-generator.txt", mode='r') as telephone:
+        print('\nOriginal Telephone Number: ', teleNumber)
+        print('\nHere is a list of words from this phone number:')
+        for record in telephone:
+            string = str(record)
+            out = [(string[i:i+counter]) for i in range(0, len(string), counter)]
+            for word in out:
+                print(word)
+
+
+            
+        
+           
+    
+main()
+
+#I would've liked to have included some sort of user validation in order to prevent the user from enter in random letters,
+# however since phone numbers have characters like '(',')','-' I wasn't sure how to validate those characters along with only integers
