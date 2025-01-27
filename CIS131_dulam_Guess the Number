@@ -1,0 +1,71 @@
+# Satya Dulam
+# 6/8/24
+# CIS 131 Guess the Number 
+
+#Write a script that plays “guess the number.” Choose the number to be guessed by selecting a random integer in the range 1 to 1000. Do not reveal this number to the user. Display the prompt "Guess my number between 1 and 1000 with the fewest guesses:". The player inputs a first guess. If the guess is incorrect, display "Too high. Try again." or "Too low. Try again." as appropriate to help the player “zero in” on the correct answer, then prompt the user for the next guess. Count the number of guesses the player makes. If the number is 10 or fewer, display "Either you know the secret or you got lucky!" If the player makes more than 10 guesses, display "You should be able to do better!" When the user enters the correct answer, display "Congratulations. You guessed the number!” and allow the user to choose whether to play again.
+
+#setting up main module
+import random
+
+def main():
+    
+    
+    #setting a counter for the loop
+    counter = 0 
+    
+    #setting parameters for the game
+    LOW = 1
+    HIGH = 1000
+    
+    playAgain = 'y'
+    
+    while playAgain == 'y':
+        
+         # the unknown number the user has to guess
+        unknownNumber = random.randrange(1,1001)
+            
+        # collecting input from the user
+        guessNumber = getValidNum("Guess the number between 1 and 1000 with the fewest guesses:", LOW, HIGH)
+
+        #filtering the users input to see if they have guessed the right number
+        while guessNumber != unknownNumber:
+            counter += 1
+            if guessNumber > unknownNumber:
+                print("\nToo high, try again!")
+            else:
+                print("\nToo low, try again!")
+            if counter == 11:
+                print("\nYou should be able to do better!")
+            guessNumber = getValidNum("\nGuess the number between 1 and 1000 with the fewest guesses:", LOW, HIGH)
+
+        # once they have guessed the right number, they are told so
+        print("\nCongratulations! You've guessed the number!")
+        if counter <= 10:
+            print("\nEither you know the secert or you just got lucky!")
+            
+        playAgain = input('Do you want to play again? (y for yes): ')
+
+# input filters and validation for integers within the intended range 
+def getInteger(message):
+    while True:
+        try:
+            userInput = int(input(message))
+            return userInput
+        except ValueError:
+            print("\nPlease enter an whole number")
+            
+def getValidNum(message, LOW, HIGH):
+    newValue = getInteger(message)
+    while isInvalid(newValue, LOW, HIGH):
+        print("Please enter a number between 1 and 1000")
+        newValue = getInteger(message)
+    return newValue
+
+def isInvalid(newValue, LOW, HIGH):
+    if newValue <LOW:
+        return True
+    if newValue > HIGH:
+        return True
+    return False
+            
+main()
