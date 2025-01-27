@@ -1,0 +1,33 @@
+zero = 0
+def main():
+    
+    inputAge = getValidNum('Please enter your age to calculate your maximum heart and your target heart rate: ',zero)
+
+    maxRate = 220 - int(inputAge)
+
+    minTarget = maxRate*0.50
+    maxTarget = maxRate*0.85
+
+    print("\nYour maximum heart rate is",maxRate,"beats per minute.\n")
+    print("Your target heart rate is between",minTarget,"and", maxTarget,"beats per minute.")
+    
+def getInteger(message):
+    while True:
+        try:
+            userInput = int(input(message))
+            return userInput
+        except ValueError:
+            print("Please enter an valid age.")
+def getValidNum(message, zero):
+    newValue = getInteger(message)
+    while isInvalid(newValue, zero):
+        print("Please enter an age above 0.")
+        newValue = getInteger(message)
+    return newValue
+
+def isInvalid(newValue, zero):
+    if newValue <= zero:
+        return True
+    return False 
+    
+main()
