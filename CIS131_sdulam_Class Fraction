@@ -1,0 +1,32 @@
+#Satya Dulam
+#131CIS
+#6/29/24
+#Class fraction 
+
+from fractions import Fraction
+
+#setting values to the numerator and denominator
+oneHalf = Fraction(numerator=2, denominator=4)
+oneThird = Fraction(3,9)
+#printing out both fractions
+print("2 over 4 can be reduced to",oneHalf)
+print("\n3 over 9 can be reduced to", oneThird)
+#doing math with fractions 
+print("\nOne half plus one third is", oneHalf + oneThird)
+print("\nOne hald minus one third is", oneHalf-oneThird)
+print("\nOne half multipled by one third is", oneHalf*oneThird)
+print("\nOne half divided by one third is",oneHalf/oneThird)
+#converting fractions into floats
+print("\nThe decimal of one third is", float(oneThird))
+
+#setting complex numbers into variables
+x= complex(-2,3)
+y=complex(4,-5)
+print("\nThe value of x is", x)
+print("\nThe value of y is", y)
+#doing math with imaginary numbers
+print("\nAdding x and y is equal to",x+y)
+print("\nSubtracting x from y is equal to", x-y)
+#showing which part is imaginary and which part is real 
+print("\nIn x the real value is", x.real)
+print("\nIn x the imaginary value is", x.imag)
