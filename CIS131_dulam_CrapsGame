@@ -1,0 +1,120 @@
+#Satya Dulam
+#CIS131 
+#6/16/24
+#CrapsGame
+
+#importing pre-made code
+import random
+
+import numpy as np
+
+from collections import OrderedDict
+
+#setting original counters or variables
+print('THE GAME OF CRAPS!!!!!\n')
+gameCounter = 0
+totalWin = 0
+totalLost = 0
+rollWin = 0
+rollLost = 0
+
+#setting dictionaries
+numberWins = {}
+numberLoses = {}
+  
+# starting the loop for the game counter
+while gameCounter != 100:
+    gameCounter += 1
+    
+    #code provided in the question
+    def rollDice():
+        die1 = random.randrange(1,7)
+        die2 = random.randrange(1,7)
+        return(die1, die2)
+
+    def displayDice(dice):
+        die1,die2 = dice
+        #print(f'Player rolled {die1} + {die2}= {sum(dice)}')
+
+    dieValues = rollDice()
+    displayDice(dieValues)
+
+    sumOfDice = sum(dieValues)
+
+    if sumOfDice in (7,11):
+        gameStatus = "WON"
+    elif sumOfDice in (2,3,12):
+        gameStatus = "LOST"
+    else:
+        gameStatus = 'CONTINUE'
+        myPoint = sumOfDice
+        #print('Point is',myPoint)
+    #setting a counter to use as my key variables for each dictionary
+    rollCounter = 1
+    #more code provided
+    while gameStatus == 'CONTINUE':
+        rollCounter +=1
+        dieValues = rollDice()
+        displayDice(dieValues)
+        sumOfDice = sum(dieValues)
+
+        if sumOfDice == myPoint:
+            gameStatus = 'WON'
+        elif sumOfDice == 7:
+            gameStatus = 'LOST'
+    # using the number of rolls to add a single number of games Won or lost per while loop      
+    gamesWon = numberWins.get(rollCounter,0)
+    gamesLost = numberLoses.get(rollCounter,0)
+    if gameStatus == 'WON':
+        #print('Player wins! \n')
+        gamesWon += 1
+        numberWins[rollCounter] = gamesWon
+    else:
+        #print('Player loses! \n')
+        gamesLost += 1
+        numberLoses[rollCounter] = gamesLost
+        
+#sorting the dictionaries based on numerical key       
+keysWon = list(numberWins.keys())
+valuesWon = list(numberWins.values())
+sortedKeyIndexWon = np.argsort(keysWon)
+sortedNumberWins = {keysWon[i]:valuesWon[i] for i in sortedKeyIndexWon}
+
+keysLost = list(numberLoses.keys())
+valuesLost = list(numberLoses.values())
+sortedKeyIndexLost = np.argsort(keysLost)
+sortedNumberLoses = {keysLost[i]:valuesLost [i] for i in sortedKeyIndexLost}
+
+#letting the user known how many rolls it took for them to win or lose
+for key, value in sortedNumberWins.items():
+    print(value,"game(s) were won on roll number",str(key)+"!\n")
+
+for key, value in sortedNumberLoses.items():
+    print(value,"game(s) were lost on roll number",str(key)+"!\n")
+    
+#letting the user know the percentage of winning or losing in the total while loop
+for value in sortedNumberWins.values():
+    totalWin += value
+percentWin = (totalWin/gameCounter)*100
+
+for value in sortedNumberLoses.values():
+    totalLost += value
+percentLost = (totalLost/gameCounter)*100
+
+print(str(percentWin)+"% of games were won and",str(percentLost)+"% of games were lost!\n")
+cResolve = 0
+
+#Letting the user know the percentage of total games ended at each roll and the cumulative
+print(f'{"Number of Rolls":<20}{"Percentage of Games Resolved":<30}{"Percent of Cumulative Games Resolved"}')
+
+for key,value in sortedNumberWins.items():
+    totalRollWin = sortedNumberWins.get(key,0)
+    sortedNumberWins[key]=0
+    totalRollLose = sortedNumberLoses.get(key,0)
+    sortedNumberLoses[key]=0
+    totalPerRoll = totalRollLose + totalRollWin
+    percentTotalRoll = (totalPerRoll/gameCounter)*100
+    
+    cResolve += totalPerRoll
+    cSumPercent = (cResolve/gameCounter)*100
+    print(f'{key:<20}{percentTotalRoll:<30}{cSumPercent:<20}')
